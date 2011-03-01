@@ -1,2 +1,3 @@
-require 'site'
+require 'textcaptcha-contact'
+
 run Sinatra::Application

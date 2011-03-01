@@ -13,3 +13,32 @@
   %body
     #wrapper
       %h1 Test Page
+      
+      %form#contact{:action => "contact", :method => "post"}
+        %p= flash[:message]
+        %fieldset
+          %legend Your Details
+          -#Store each encoded captcha answer in a hidden field. Far From ideal bus since I can't get sessions working...
+          - @captcha_a.each_with_index do |c, i|
+            %input{:type => "hidden", :value => "#{c}", :id => "l33g5[#{i}]", :name => "l33g5[#{i}]"}
+            
+          %ol
+            %li
+              %label{:for => "name"} Name
+              %input{:type => "text", :id => "name", :name => "name", :placeholder => "Joe Bloggs", :required => true, :autofocus => true}
+            %li
+              %label{:for => "email"} Email
+              %input{:type => "email", :id => "email", :name => "email", :placeholder => "joe@example.com", :required => true}
+            %li
+              %label{:for => "website"} Website
+              %input{:type => "url", :id => "website", :name => "website", :placeholder => "http://example.com"}
+              %p Only if you have one.
+            %li
+              %label{:for => "captcha"}= @captcha_q
+              %input{:type => "text", :id => "captcha", :name => "captcha"}
+        %fieldset
+          %legend Your Message
+          %label Message
+          %textarea{:id => "message", :name => "message", :rows => "5", :required => true}
+        %fieldset
+          %button{:type => "submit"} Send
